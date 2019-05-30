@@ -3,6 +3,7 @@ package statistics
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Shell
+import org.eclipse.swt.widgets.TreeItem
 
 /**
  * @since 0.1
@@ -24,8 +25,15 @@ fun main() {
     codeLabel(shell, codeWidth)
     statisticsLabel(shell, statisticsWidth)
 
-    codeView(shell, codeWidth)
-    statistics(shell, statisticsWidth)
+    val codeView = codeView(shell, codeWidth)
+    val statistics = statistics(shell, statisticsWidth)
+
+    codeView.addModifyListener {
+        statistics.removeAll()
+        TreeItem(statistics, 0).apply {
+            text = className(codeView.text)
+        }
+    }
 
     shell.setSize(800, 1000)
     shell.open()
