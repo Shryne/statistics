@@ -30,9 +30,13 @@ fun main() {
 
     codeView.addModifyListener {
         statistics.removeAll()
-        TreeItem(statistics, 0).apply {
+        val classItem = TreeItem(statistics, 0).apply {
             text = className(codeView.text)
         }
+        TreeItem(classItem, 0).apply {
+            text = "LoC = ${codeView.lineCount}"
+        }
+        classItem.expanded = true
     }
 
     shell.setSize(800, 1000)
