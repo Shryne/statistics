@@ -79,12 +79,22 @@ fun privateMethods(text: String): String {
                 if (text[i + 6] == ' ') {
                     continue
                 }
-                for (j in (i + 8)..text.length - 1) {
+                var j = i + 9
+                while (j < text.length - 1) {
+                    if (text[j] == ' ') {
+                        ++j
+                        break
+                    } else {
+                        ++j
+                    }
+                }
+                while (j < text.length - 1) {
                     if (text[j] == '(') {
                         ++number
                     } else if ((text[j] == ' ') or (text[j] == '=')) {
                         break
                     }
+                    ++j
                 }
             }
         }

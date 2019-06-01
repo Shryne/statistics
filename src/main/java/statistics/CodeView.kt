@@ -15,7 +15,7 @@ fun codeView(composite: Composite, columnWidth: Int) =
         layoutData = GridData(GridData.FILL_BOTH).apply {
             horizontalSpan = columnWidth
         }
-        text = "public class myClass {}"
+        text = "public class myClass { private void x() }"
     }
 
 fun codeLabel(composite: Composite, columnWidth: Int) {
