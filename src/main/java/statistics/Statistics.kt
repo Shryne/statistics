@@ -63,16 +63,28 @@ fun className(text: String): String {
  */
 fun privateMethods(text: String): String {
     var number = 0
+    var inComment = false
     for (i in 0..text.length - 9) {
-        if (text.substring(i..(i + 6)) == "private") {
-            if (text[i + 6] == ' ') {
+        if (inComment) {
+            if (text.substring(i..(i + 1)) == "*/") {
+                inComment = false
+            } else {
                 continue
             }
-            for (j in (i + 8)..text.length - 1) {
-                if (text[j] == '(') {
-                    ++number
-                } else if ((text[j] == ' ') or (text[j] == '=')) {
-                    break
+        }
+        else {
+            if (text.substring(i..(i + 1)) == "/*") {
+                inComment = true
+            } else if (text.substring(i..(i + 6)) == "private") {
+                if (text[i + 6] == ' ') {
+                    continue
+                }
+                for (j in (i + 8)..text.length - 1) {
+                    if (text[j] == '(') {
+                        ++number
+                    } else if ((text[j] == ' ') or (text[j] == '=')) {
+                        break
+                    }
                 }
             }
         }
