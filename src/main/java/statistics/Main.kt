@@ -36,6 +36,12 @@ fun main() {
         TreeItem(classItem, 0).apply {
             text = "LoC = ${codeView.lineCount}"
         }
+        TreeItem(classItem, 0).apply {
+            text = privateMethods(codeView.text)
+        }
+        TreeItem(classItem, 0).apply {
+            text = publicMethods(codeView.text)
+        }
         classItem.expanded = true
     }
 
