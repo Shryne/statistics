@@ -102,22 +102,43 @@ fun privateMethods(text: String): String {
     return "private methods = $number"
 }
 
-
 /**
  * @since 0.5
  */
 fun publicMethods(text: String): String {
     var number = 0
+    var inComment = false
     for (i in 0..text.length - 8) {
-        if (text.substring(i..(i + 5)) == "public") {
-            if (text[i + 5] == ' ') {
+        if (inComment) {
+            if (text.substring(i..(i + 1)) == "*/") {
+                inComment = false
+            } else {
                 continue
             }
-            for (j in (i + 7)..text.length - 1) {
-                if (text[j] == '(') {
-                    ++number
-                } else if ((text[j] == ' ') or (text[j] == '=')) {
-                    break
+        }
+        else {
+            if (text.substring(i..(i + 1)) == "/*") {
+                inComment = true
+            } else if (text.substring(i..(i + 5)) == "public") {
+                if (text[i + 5] == ' ') {
+                    continue
+                }
+                var j = i + 8
+                while (j < text.length - 1) {
+                    if (text[j] == ' ') {
+                        ++j
+                        break
+                    } else {
+                        ++j
+                    }
+                }
+                while (j < text.length - 1) {
+                    if (text[j] == '(') {
+                        ++number
+                    } else if ((text[j] == ' ') or (text[j] == '=')) {
+                        break
+                    }
+                    ++j
                 }
             }
         }
