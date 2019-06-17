@@ -79,7 +79,11 @@ fun privateMethods(text: String): String {
                 if (text[i + 6] == ' ') {
                     continue
                 }
-                var j = i + 9
+                var j = i + 8
+                if ((text.length - 1 > j + 4) && (text.substring(j..(j + 4)) == "final")) {
+                    j += 5
+                }
+                ++j
                 while (j < text.length - 1) {
                     if (text[j] == ' ') {
                         ++j
@@ -91,7 +95,7 @@ fun privateMethods(text: String): String {
                 while (j < text.length - 1) {
                     if (text[j] == '(') {
                         ++number
-                    } else if ((text[j] == ' ') or (text[j] == '=')) {
+                    } else if (text[j] == '=') {
                         break
                     }
                     ++j
